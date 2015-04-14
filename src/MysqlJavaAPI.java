@@ -7,11 +7,13 @@ import java.sql.SQLException;
 public class MysqlJavaAPI {
 
 	public static void main(String[] args) throws SQLException {
-	
-		Converter c= new Converter();
+	Converter c= new Converter();
 		c.initMongoConnection();
 		c.initSQLConnection();
+		
+		c.copyDepartments();
 		c.copyEmployees();
+		
 		c.closeSQLConnection();
 	}
 }	

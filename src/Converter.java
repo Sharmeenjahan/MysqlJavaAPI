@@ -176,8 +176,8 @@ public class Converter {
 	* Copy into the dept_emp collection based on
 	* an employee's number, and the Object ID to reference back to
 	* the employees collection.
-	* @param empNum: The value of the employee's emp_no
-	* @param eid: The ObjectId used by the employee's document
+	* @param emp_no: The value of the employee's emp_no
+	* @param empId: The ObjectId used by the employee's document
 	*/
 	public void copyDeptEmp(int emp_no,Object empId){
 		try {
@@ -231,9 +231,9 @@ public class Converter {
 	* an employee's number, department's no and the Object IDs to reference back to
 	* the departments and employees collection.
 	* @param deptNum: The value of the employee's dept_no
-	* @param did: The ObjectId used by the department's document
+	* @param dId: The ObjectId used by the department's document
 	* @param empNum: The value of the employee's emp_no
-	* @param eid: The ObjectId used by the employee's document
+	* @param eId: The ObjectId used by the employee's document
 	*/
 	
 	public void copyDeptManager( String deptNum, int empNum, Object dId, Object eId){

@@ -1,3 +1,12 @@
 Requirement ID 	| Requirement Description 	| Status Code 	| Comments
 
+	1	| Configuration Requirements	|	N	| 
+	
+	2	| CRUD Timing Performance	|	P	| Basic create and read actions timed
 
+	3	| Recovery Timing		|	P	| Currently setting up replica sets
+
+	4	| Ease of Implementation	|	P	| Conversion from MySQL to MongoDB complete
+
+	5	| Number of Simul. Transactions	|	D	| There are several sources for both
+								  MySQL and MongoDB for this goal

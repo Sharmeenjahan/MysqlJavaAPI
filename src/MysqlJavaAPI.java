@@ -17,14 +17,14 @@ public class MysqlJavaAPI {
 
 	public static void main(String[] args) throws SQLException {
 	
-		Converter c= new Converter();
-		c.removeDB();
-		c.initMongoConnection();
-		//c.Clean();
-		c.initSQLConnection();
+		Converter employeeConverter = new Converter();
+		employeeConverter.removeDB();
+		employeeConverter.initMongoConnection();
+		//employeeConverter.Clean();
+		employeeConverter.initSQLConnection();
 		
-		c.copyDepartments();
-		c.copyEmployees();
+		employeeConverter.copyDepartments();
+		employeeConverter.copyEmployees();
 		
 		MyqlPerformance performance = new MysqlPerformance();
 		

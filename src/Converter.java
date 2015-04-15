@@ -13,7 +13,7 @@ import com.mongodb.MongoClient;
 
 /**
 *
-*@author Drew Whittaker
+* @author Drew Whittaker
 * @author John Cutsavage
 * @author Sharmeen Jahan
 *
@@ -35,19 +35,20 @@ public class Converter {
 	*
 	*/
 	public void initSQLConnection(){
-		   try{
-				String url = "jdbc:mysql://localhost/";
-				String dbName = "employees";
-				String driver = "com.mysql.jdbc.Driver";
-				String userName = "root"; 
-				String password = "mysql";
-				try {
-				  		con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/employees?user=root&password=mysql");
-				 
-				  } catch (Exception e) {
-					  e.printStackTrace();
-				  }	  
-		   } finally{}
+		try{
+			String url = "jdbc:mysql://localhost/";
+			String dbName = "employees";
+			String driver = "com.mysql.jdbc.Driver";
+			String userName = "root"; 
+			String password = "mysql";
+			try {
+				con = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/employees?user=root&password=mysql");
+			} 
+			catch (Exception e) {
+				e.printStackTrace();
+			}	  
+		   } 
+		finally{}
 	}
 	
 
@@ -57,7 +58,7 @@ public class Converter {
 	
 	//Initialize the connection and get the database from mongodb instance.
    public void initMongoConnection(){
-      try{   
+	   try{   
     	  // To connect to mongodb server
          mongoClient = new MongoClient( "localhost" , 27017 );
          
@@ -74,103 +75,104 @@ public class Converter {
     	  System.out.println(e.getMessage());
       }
    }
+   
    /**
 	* Copy into the departments collection.
 	*/
 	public void copyDepartments(){
 		try {
-		// Run a select query of all entries in departments table from MySQL
-		Statement statement = con.createStatement();
-		ResultSet res = statement.executeQuery("SELECT * FROM departments");
+			// Run a select query of all entries in departments table from MySQL
+			Statement statement = con.createStatement();
+			ResultSet res = statement.executeQuery("SELECT * FROM departments");
 		
-		// Create new table/collection of departments
-		dColl= db.getCollection("departments");
-		dColl.remove(new BasicDBObject());
-		BasicDBObject copyDocument = new BasicDBObject();
-		// Iterate through the departments, capture the information, and copy it to MongoDB
-		while(res.next()) {
-		String dept_no = res.getString("dept_no");
-		String dept_name = res.getString("dept_name");
+			// Create new table/collection of departments
+			dColl= db.getCollection("departments");
+			dColl.remove(new BasicDBObject());
+			BasicDBObject copyDocument = new BasicDBObject();
+			// Iterate through the departments, capture the information, and copy it to MongoDB
+			while(res.next()) {
+				String dept_no = res.getString("dept_no");
+				String dept_name = res.getString("dept_name");
 		
 
-		copyDocument.put("dept_no", dept_no);
-		copyDocument.put("dept_name", dept_name);
-		dColl.insert(copyDocument);
+				copyDocument.put("dept_no", dept_no);
+				copyDocument.put("dept_name", dept_name);
+				dColl.insert(copyDocument);
 		
-		dept_name= "";
-		copyDocument.clear();
+				dept_name= "";
+				copyDocument.clear();
 		
-		}
+			}
 		
-		res.close();
-		res = null;
-		copyDocument = null;
+			res.close();
+			res = null;
+			copyDocument = null;
 		}
 		catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
-		}
+	}
 	
 	/**
 	* Copy into the employees collection.
 	*/
 	public void copyEmployees(){
 		try {
-		// Run a select query of all entries in departments table from MySQL
-		Statement statement = con.createStatement();
-		ResultSet res = statement.executeQuery("SELECT * FROM employees");
+			// Run a select query of all entries in departments table from MySQL
+			Statement statement = con.createStatement();
+			ResultSet res = statement.executeQuery("SELECT * FROM employees");
 		
-		// Create new table/collection of departments
-		eColl= db.getCollection("employees");
-		eColl.remove(new BasicDBObject());
-		//sColl.remove(new BasicDBObject());
-		//tColl.remove(new BasicDBObject());
-		sColl= db.getCollection("salaries");
-		tColl=db.getCollection("titles");
-		dmColl=db.getCollection("dept_manager");
-		deColl= db.getCollection("dept_emp");
+			// Create new table/collection of departments
+			eColl= db.getCollection("employees");
+			eColl.remove(new BasicDBObject());
+			//sColl.remove(new BasicDBObject());
+			//tColl.remove(new BasicDBObject());
+			sColl= db.getCollection("salaries");
+			tColl=db.getCollection("titles");
+			dmColl=db.getCollection("dept_manager");
+			deColl= db.getCollection("dept_emp");
 		
-		int emp_no;
-		Date birthDate, hireDate;
-		String firstName, lastName;
-		Object gender = null;
-		BasicDBObject copyDocument = new BasicDBObject();
+			int emp_no;
+			Date birthDate, hireDate;
+			String firstName, lastName;
+			Object gender = null;
+			BasicDBObject copyDocument = new BasicDBObject();
 		
-		// Iterate through the departments, capture the information, and copy it to MongoDB
-		while(res.next()) {
-			emp_no = res.getInt("emp_no");
-			birthDate = res.getDate("birth_date");
-			firstName = res.getString("first_name");
-			lastName = res.getString("last_name");
-			gender = res.getObject("gender");
-			hireDate = res.getDate("hire_date");
+			// Iterate through the departments, capture the information, and copy it to MongoDB
+			while(res.next()) {
+				emp_no = res.getInt("emp_no");
+				birthDate = res.getDate("birth_date");
+				firstName = res.getString("first_name");
+				lastName = res.getString("last_name");
+				gender = res.getObject("gender");
+				hireDate = res.getDate("hire_date");
 			
-			copyDocument.put("emp_no", emp_no);
-			copyDocument.put("birth_date", birthDate);
-			copyDocument.put("first_name", firstName);
-			copyDocument.put("last_name", lastName);
-			copyDocument.put("gender", gender);
-			copyDocument.put("hire_date", hireDate);
-			eColl.insert(copyDocument);	
+				copyDocument.put("emp_no", emp_no);
+				copyDocument.put("birth_date", birthDate);
+				copyDocument.put("first_name", firstName);
+				copyDocument.put("last_name", lastName);
+				copyDocument.put("gender", gender);
+				copyDocument.put("hire_date", hireDate);
+				eColl.insert(copyDocument);	
 			
-			// Next, convert the current employee's job title and salary
-			ObjectId id = (ObjectId) copyDocument.get("_id"); //Use this ID for reference in the next two methods
-			copyTitle(emp_no, id);
-			copySalary(emp_no, id);
-			copyDeptEmp(emp_no, id);
-			firstName = "";
-			lastName = "";
-			copyDocument.clear();
+				// Next, convert the current employee's job title and salary
+				ObjectId id = (ObjectId) copyDocument.get("_id"); //Use this ID for reference in the next two methods
+				copyTitle(emp_no, id);
+				copySalary(emp_no, id);
+				copyDeptEmp(emp_no, id);
+				firstName = "";
+				lastName = "";
+				copyDocument.clear();
 			
-		}
-		copyDocument = null;
-		res.close();
-		res= null;
+			}
+			copyDocument = null;
+			res.close();
+			res= null;
 		}
 		catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
-		}
+	}
 	
 	/**
 	* Copy into the dept_emp collection based on
@@ -192,6 +194,7 @@ public class Converter {
 			//Search for the salary of an employee by their emp_no
 			Statement statement = con.createStatement();
 			ResultSet res = statement.executeQuery("SELECT * FROM dept_emp where emp_no=" + Integer.toString(emp_no));
+			
 			while(res.next()) {
 				//String empNo=res.getString("emp_no");
 				deptNo= res.getString("dept_no");
@@ -245,6 +248,7 @@ public class Converter {
 			//Search for the salary of an employee by their emp_no
 			Statement statement = con.createStatement();
 			ResultSet res = statement.executeQuery("SELECT * FROM dept_manager WHERE dept_no = '" + deptNum +"' && emp_no = " + Integer.toString(empNum));
+			
 			while(res.next()) {
 				from = res.getDate("from_date");
 				to = res.getDate("to_date");
@@ -286,6 +290,7 @@ public class Converter {
 			//Search for the salary of an employee by their emp_no
 			Statement statement = con.createStatement();
 			ResultSet res = statement.executeQuery("SELECT * FROM titles WHERE emp_no = " + Integer.toString(empNum));
+			
 			while(res.next()) {
 				title = res.getString("title");
 				from = res.getDate("from_date");
@@ -354,23 +359,24 @@ public class Converter {
 	* Closes the MySQL connection.
 	*/
 	public void closeSQLConnection(){
-	try{
-	con.close();
+		try{
+			con.close();
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
-	catch(SQLException e) {
-	e.printStackTrace();
-	}
-	}
+	
 	/**
 	* Removes employee database from Mongo
 	*/
 	public void removeDB(){
-	try {
-	db.dropDatabase();
-	}
-	catch (Exception e) {
-	System.out.println(e.getMessage());
-	}
+		try {
+			db.dropDatabase();
+		}
+		catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 }

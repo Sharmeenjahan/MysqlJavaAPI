@@ -17,5 +17,9 @@ public class MysqlJavaAPI {
 		
 		c.copyDepartments();
 		c.copyEmployees();
+		
+		MyqlPerformance performance = new MysqlPerformance();
+		
+		performance.crudTests();
 	}
 }

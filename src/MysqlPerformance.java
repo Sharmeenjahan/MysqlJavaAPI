@@ -55,19 +55,23 @@ public class MysqlPerformance {
 			long startTime = System.currentTimeMillis();
 			
 			// Create a new table with only one column for now
-			String createTable = "CREATE TABLE table1(id int(3) NOT NULL, PRIMARY_KEY(id));";
-			sqlStatment.executeUpdate(createTable);
+			String createTable1 = "CREATE TABLE table1(id int(3) NOT NULL, PRIMARY_KEY(id));";
+			sqlStatment.executeUpdate(createTable1);
+			String createTable2 = "CREATE TABLE table2(id int(3) NOT NULL, PRIMARY_KEY(id));";
+			sqlStatment.executeUpdate(createTable2);
 			
 			// Insert 100 records
 			for(int i = 1; i <= 100; i++){
 				String insertData = "INSERT INTO table1 VALUES ("+ i + ");";
+				sqlStatement.executeUpdate(insertData);
+				insertData = "INSERT INTO table2 VALUES ("+ i + ");";
 				sqlStatement.executeUpdate(insertData);
 			}
 			
 			long endTime = System.currentTimeMillis();
 			long runTime = endTime - startTime;
 			
-			System.out.println("Current time to execute insertions:" + runTime);
+			System.out.println("Current time to execute insertions (in milliseconds):" + runTime);
 			
 			Runtime runtime = Runtime.getRuntime();
 			runtime.gc();	// Runs java garbage collectiong
@@ -95,11 +99,13 @@ public class MysqlPerformance {
 			// Read all of the data in the table
 			String readAll = "SELECT * FROM table1;";
 			sqlStatement.executeUpate(readAll);
+			String readAll = "SELECT * FROM table2;";
+			sqlStatement.executeUpate(readAll);
 			
 			long endTime = System.currentTimeMillis();
 			long runTime = endTime - startTime;
 			
-			System.out.println("Current time to execute reads:" + runTime);
+			System.out.println("Current time to execute reads (in milliseconds):" + runTime);
 			
 			Runtime runtime = Runtime.getRuntime();
 			runtime.gc();	// Runs java garbage collection

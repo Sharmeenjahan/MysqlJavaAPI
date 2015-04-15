@@ -65,7 +65,7 @@ public class MysqlPerformance {
 			}
 			
 			long endTime = System.currentTimeMillis();
-			long runTime = endTime - startTime();
+			long runTime = endTime - startTime;
 			
 			System.out.println("Current time to execute insertions:" + runTime);
 			
@@ -75,7 +75,7 @@ public class MysqlPerformance {
 			// Total memory used is total memory - free memory
 			long memoryUsed = runtime.totalMemory() - runtime.freeMemory();
 			
-			System.out.println("Total memory used by insertions (in bytes): " + usedMemory);
+			System.out.println("Total memory used by insertions (in bytes): " + memoryUsed);
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -107,7 +107,7 @@ public class MysqlPerformance {
 			// Get total memory used by subtracting the free memory from total memory
 			long memoryUsed = runtime.totalMemory() - runtime.freeMemory();
 			
-			System.out.println("Total memory used by reads (in bytes): " + usedMemory);
+			System.out.println("Total memory used by reads (in bytes): " + memoryUsed);
 		}
 		catch (Exception e){
 			e.printStackTrace();

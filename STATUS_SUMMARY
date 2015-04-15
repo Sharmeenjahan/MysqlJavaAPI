@@ -2,7 +2,7 @@ Requirement ID 	| Requirement Description 	| Status Code 	| Comments
 
 	1	| Configuration Requirements	|	N	| 
 	
-	2	| CRUD Timing Performance	|	P	| Basic create and read actions timed
+	2	| CRUD Timing Performance	|	P	| Basic create and read actions timed in MySQL
 
 	3	| Recovery Timing		|	P	| Currently setting up replica sets
 

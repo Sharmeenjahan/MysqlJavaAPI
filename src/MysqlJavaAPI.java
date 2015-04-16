@@ -18,11 +18,11 @@ public class MysqlJavaAPI {
 	public static void main(String[] args) throws SQLException {
 	
 		Converter employeeConverter = new Converter();
-		employeeConverter.removeDB();
+	
 		employeeConverter.initMongoConnection();
 		//employeeConverter.Clean();
 		employeeConverter.initSQLConnection();
-		
+		employeeConverter.removeDB();
 		employeeConverter.copyDepartments();
 		employeeConverter.copyEmployees();
 		
